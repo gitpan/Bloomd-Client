@@ -8,7 +8,7 @@
 #
 package Bloomd::Client;
 {
-  $Bloomd::Client::VERSION = '0.10';
+  $Bloomd::Client::VERSION = '0.11';
 }
 
 # ABSTRACT: Perl client to the bloomd server
@@ -76,8 +76,8 @@ method disconnect {
 method create ($name, $capacity?, $prob?, $in_memory?) {
     my $args =
         ( $capacity ? "capacity=$capacity" : '' )
-      . ( $prob ? "prob=$prob" : '' )
-      . ( $in_memory ? "in_memory=$in_memory" : '' );
+      . ( $prob ? " prob=$prob" : '' )
+      . ( $in_memory ? " in_memory=$in_memory" : '' );
     $self->_execute("create $name $args" ) eq 'Done';
 }
 
@@ -190,7 +190,7 @@ Bloomd::Client - Perl client to the bloomd server
 
 =head1 VERSION
 
-version 0.10
+version 0.11
 
 =head1 SYNOPSIS
 
