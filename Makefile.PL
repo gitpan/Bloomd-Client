@@ -13,8 +13,9 @@ my %WriteMakefileArgs = (
   "AUTHOR" => "Damien \"dams\" Krotkine",
   "BUILD_REQUIRES" => {
     "Module::Build" => "0.3601",
-    "Test::Most" => 0,
-    "Test::Pretty" => 0
+    "Test::Exception" => 0,
+    "Test::More" => 0,
+    "Test::TCP" => 0
   },
   "CONFIGURE_REQUIRES" => {
     "ExtUtils::MakeMaker" => "6.30",
@@ -25,10 +26,15 @@ my %WriteMakefileArgs = (
   "LICENSE" => "perl",
   "NAME" => "Bloomd::Client",
   "PREREQ_PM" => {
+    "Config" => 0,
+    "IO::Socket::INET" => 0,
+    "List::MoreUtils" => 0,
+    "Method::Signatures" => 0,
     "Moo" => 0,
+    "autobox::Core" => 0,
     "namespace::autoclean" => 0
   },
-  "VERSION" => "0.11",
+  "VERSION" => "0.12",
   "test" => {
     "TESTS" => "t/*.t"
   }

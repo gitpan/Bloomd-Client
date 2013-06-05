@@ -13,4 +13,3 @@ t/basic.t
 t/release-distmeta.t
 t/release-pod-coverage.t
 t/timeout.t
-t/tlib/TestTimeout.pm

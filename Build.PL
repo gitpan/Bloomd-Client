@@ -8,8 +8,9 @@ use Module::Build 0.3601;
 my %module_build_args = (
   "build_requires" => {
     "Module::Build" => "0.3601",
-    "Test::Most" => 0,
-    "Test::Pretty" => 0
+    "Test::Exception" => 0,
+    "Test::More" => 0,
+    "Test::TCP" => 0
   },
   "configure_requires" => {
     "ExtUtils::MakeMaker" => "6.30",
@@ -20,13 +21,18 @@ my %module_build_args = (
     "Damien \"dams\" Krotkine"
   ],
   "dist_name" => "Bloomd-Client",
-  "dist_version" => "0.11",
+  "dist_version" => "0.12",
   "license" => "perl",
   "module_name" => "Bloomd::Client",
   "recommends" => {},
   "recursive_test_files" => 1,
   "requires" => {
+    "Config" => 0,
+    "IO::Socket::INET" => 0,
+    "List::MoreUtils" => 0,
+    "Method::Signatures" => 0,
     "Moo" => 0,
+    "autobox::Core" => 0,
     "namespace::autoclean" => 0
   },
   "script_files" => []
