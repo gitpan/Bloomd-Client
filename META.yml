@@ -1,0 +1,28 @@
+---
+abstract: 'Perl client to the bloomd server'
+author:
+  - "Damien \"dams\" Krotkine"
+build_requires:
+  Module::Build: 0.3601
+  Test::Most: 0
+  Test::Pretty: 0
+configure_requires:
+  ExtUtils::MakeMaker: 6.30
+  Module::Build: 0.3601
+dynamic_config: 0
+generated_by: 'Dist::Zilla version 4.300030, CPAN::Meta::Converter version 2.120921'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: Bloomd-Client
+provides:
+  Bloomd::Client:
+    file: lib/Bloomd/Client.pm
+    version: 0.10
+requires:
+  Moo: 0
+  namespace::autoclean: 0
+resources:
+  repository: git://github.com/dams/Bloomd-Client.git
+version: 0.10

@@ -1,0 +1,16 @@
+Build.PL
+Changes
+LICENSE
+MANIFEST
+META.yml
+Makefile.PL
+README
+README.md
+dist.ini
+lib/Bloomd/Client.pm
+t/00-compile.t
+t/basic.t
+t/release-distmeta.t
+t/release-pod-coverage.t
+t/timeout.t
+t/tlib/TestTimeout.pm
