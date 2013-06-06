@@ -7,10 +7,7 @@ use Module::Build 0.3601;
 
 my %module_build_args = (
   "build_requires" => {
-    "Module::Build" => "0.3601",
-    "Test::Exception" => 0,
-    "Test::More" => 0,
-    "Test::TCP" => 0
+    "Module::Build" => "0.3601"
   },
   "configure_requires" => {
     "ExtUtils::MakeMaker" => "6.30",
@@ -21,7 +18,7 @@ my %module_build_args = (
     "Damien \"dams\" Krotkine"
   ],
   "dist_name" => "Bloomd-Client",
-  "dist_version" => "0.14",
+  "dist_version" => "0.15",
   "license" => "perl",
   "module_name" => "Bloomd::Client",
   "recommends" => {},
@@ -33,9 +30,27 @@ my %module_build_args = (
     "Method::Signatures" => 0,
     "Moo" => 0
   },
-  "script_files" => []
+  "script_files" => [],
+  "test_requires" => {
+    "Test::Exception" => 0,
+    "Test::More" => 0,
+    "Test::TCP" => 0
+  }
 );
 
+
+unless ( eval { Module::Build->VERSION(0.4004) } ) {
+  my $tr = delete $module_build_args{test_requires};
+  my $br = $module_build_args{build_requires};
+  for my $mod ( keys %$tr ) {
+    if ( exists $br->{$mod} ) {
+      $br->{$mod} = $tr->{$mod} if $tr->{$mod} > $br->{$mod};
+    }
+    else {
+      $br->{$mod} = $tr->{$mod};
+    }
+  }
+}
 
 my $build = Module::Build->new(%module_build_args);
 
