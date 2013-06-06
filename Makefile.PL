@@ -31,10 +31,9 @@ my %WriteMakefileArgs = (
     "List::MoreUtils" => 0,
     "Method::Signatures" => 0,
     "Moo" => 0,
-    "autobox::Core" => 0,
     "namespace::autoclean" => 0
   },
-  "VERSION" => "0.12",
+  "VERSION" => "0.13",
   "test" => {
     "TESTS" => "t/*.t"
   }

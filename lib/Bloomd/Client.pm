@@ -8,7 +8,7 @@
 #
 package Bloomd::Client;
 {
-  $Bloomd::Client::VERSION = '0.12';
+  $Bloomd::Client::VERSION = '0.13';
 }
 
 # ABSTRACT: Perl client to the bloomd server
@@ -16,11 +16,12 @@ package Bloomd::Client;
 use feature ':5.12';
 use Moo;
 use Method::Signatures;
-use autobox::Core;    
 use List::MoreUtils qw(any mesh);
 use Carp;
+use Socket qw(:crlf);
 use IO::Socket::INET;
-use POSIX qw(ETIMEDOUT EWOULDBLOCK EAGAIN strerror);
+use Errno qw(:POSIX);
+use POSIX qw(strerror);
 use Config;
 
 
@@ -48,8 +49,8 @@ method _build__socket {
     $self->has_timeout
       or return $socket;
 
-    $Config{osname} eq 'netbsd'
-      and croak "the timeout option is not yet supported on NetBSD";
+    $Config{osname} eq 'netbsd' || $Config{osname} eq 'solaris'
+      and croak "the timeout option is not yet supported on NetBSD or Solaris";
 
     my $seconds  = int( $self->timeout );
     my $useconds = int( 1_000_000 * ( $self->timeout - $seconds ) );
@@ -148,12 +149,10 @@ method flush ($name) {
 method _execute ($command) {
      my $socket = $self->_socket;
 
-     $socket->print($command . "\r\n")
+     $socket->print($command . $CRLF)
        or croak "couldn't write to socket";
 
      my $line = $self->_check_line($socket->getline);
-
-     $line = $line->rtrim("\r\n");
      $line =~ /^Client Error:/
        and croak "$line: $command";
 
@@ -161,22 +160,28 @@ method _execute ($command) {
        or return $line;
 
      my @lines;
-     push @lines, $line
-       while ( ($line = $self->_check_line($socket->getline)->rtrim("\r\n")) ne 'END');
+     while (1) {
+         $line = $self->_check_line($socket->getline);
+         $line eq 'END'
+           and last;
+         push @lines, $line;
+     }
  
      return @lines;
 }
 
 method _check_line($line) {
-    defined $line
-      and return $line;
-    my $e = $!;
-    if (any { $e eq strerror($_) } ( EWOULDBLOCK, EAGAIN, ETIMEDOUT )) {
-        $e = strerror(ETIMEDOUT);
-        $self->disconnect;
+    if (!defined $line) {
+        my $e = $!;
+        if (any { $_ } ( $!{EWOULDBLOCK}, $!{EAGAIN}, $!{ETIMEDOUT} )) {
+            $e = strerror(ETIMEDOUT);
+            $self->disconnect;
+        }
+        undef $!;
+        croak $e;
     }
-    undef $!;
-    croak $e;
+    $line =~ s/$CR?$LF?$//;    
+    return $line;
 }
 
 1;
@@ -190,7 +195,7 @@ Bloomd::Client - Perl client to the bloomd server
 
 =head1 VERSION
 
-version 0.12
+version 0.13
 
 =head1 SYNOPSIS
 

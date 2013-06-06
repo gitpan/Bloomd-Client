@@ -20,15 +20,14 @@ name: Bloomd-Client
 provides:
   Bloomd::Client:
     file: lib/Bloomd/Client.pm
-    version: 0.12
+    version: 0.13
 requires:
   Config: 0
   IO::Socket::INET: 0
   List::MoreUtils: 0
   Method::Signatures: 0
   Moo: 0
-  autobox::Core: 0
   namespace::autoclean: 0
 resources:
   repository: git://github.com/dams/Bloomd-Client.git
-version: 0.12
+version: 0.13
