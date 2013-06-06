@@ -21,7 +21,7 @@ my %module_build_args = (
     "Damien \"dams\" Krotkine"
   ],
   "dist_name" => "Bloomd-Client",
-  "dist_version" => "0.13",
+  "dist_version" => "0.14",
   "license" => "perl",
   "module_name" => "Bloomd::Client",
   "recommends" => {},
@@ -31,8 +31,7 @@ my %module_build_args = (
     "IO::Socket::INET" => 0,
     "List::MoreUtils" => 0,
     "Method::Signatures" => 0,
-    "Moo" => 0,
-    "namespace::autoclean" => 0
+    "Moo" => 0
   },
   "script_files" => []
 );
