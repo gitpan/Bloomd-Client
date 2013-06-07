@@ -32,7 +32,7 @@ my %WriteMakefileArgs = (
     "Method::Signatures" => 0,
     "Moo" => 0
   },
-  "VERSION" => "0.17",
+  "VERSION" => "0.18",
   "test" => {
     "TESTS" => "t/*.t"
   }

@@ -8,7 +8,7 @@
 #
 package Bloomd::Client;
 {
-  $Bloomd::Client::VERSION = '0.17';
+  $Bloomd::Client::VERSION = '0.18';
 }
 
 # ABSTRACT: Perl client to the bloomd server
@@ -195,7 +195,7 @@ Bloomd::Client - Perl client to the bloomd server
 
 =head1 VERSION
 
-version 0.17
+version 0.18
 
 =head1 SYNOPSIS
 
