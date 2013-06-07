@@ -51,22 +51,41 @@ reading and on writing to the socket. It can be a float, up to microseconds.
 More doc
 --------
 
-Check on metacpan
+Check out [the documentation on metacpan](https://metacpan.org/module/Bloomd::Client).
 
 Build from the source
 ---------------------
 
-This distribution uses [DistZilla](http://dzil.org/), so you should first
-install `Dist::Zilla` ( with `cpan Dist::Zilla` or using `cpanm`). Then:
+The `master` branch uses [DistZilla](http://dzil.org/). If you'd like to simply
+build this distribution from source, use the `build/master` branch, and issue:
+
+```shell
+perl Build.PL
+./Build test
+./Build install
+```
+
+If you want to run the tests against a running bloomd server, you'll need to set BLOOMD_HOST and BLOOMD_PORT:
 
 ```
+BLOOMD_HOST=127.0.0.1 BLOOMD_PORT=8673 ./Build test
+```
+
+Contribute
+----------
+
+It's OK to submit Pull Requests against the `build/master` branch, but it's
+easier for me to merge the patch if you use the `master` branch. For that you
+need to install `Dist::Zilla` ( with `cpan Dist::Zilla` or using `cpanm`).
+Then:
+
+```shell
 dzil authordeps --missing | cpan
 dzil listdeps --missing | cpan
 dzil build
 ```
 
-If you want to run the tests, you'll need a bloomd server up and running, and
-you'll need to set BLOOMD_HOST and BLOOMD_PORT:
+If you want to run the tests against a running bloomd server, you'll need to set BLOOMD_HOST and BLOOMD_PORT:
 
 ```
 BLOOMD_HOST=127.0.0.1 BLOOMD_PORT=8673 dzil test

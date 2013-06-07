@@ -8,7 +8,7 @@
 #
 package Bloomd::Client;
 {
-  $Bloomd::Client::VERSION = '0.16';
+  $Bloomd::Client::VERSION = '0.17';
 }
 
 # ABSTRACT: Perl client to the bloomd server
@@ -187,7 +187,6 @@ method _check_line($line) {
 1;
 
 __END__
-
 =pod
 
 =head1 NAME
@@ -196,7 +195,7 @@ Bloomd::Client - Perl client to the bloomd server
 
 =head1 VERSION
 
-version 0.16
+version 0.17
 
 =head1 SYNOPSIS
 
@@ -326,3 +325,4 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
+

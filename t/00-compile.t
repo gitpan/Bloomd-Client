@@ -62,12 +62,34 @@ do { push @scripts, _find_scripts($_) if -d $_ }
 my $plan = scalar(@modules) + scalar(@scripts);
 $plan ? (plan tests => $plan) : (plan skip_all => "no tests to run");
 
+print STDERR "Start ".localtime(time)."\n";
+
 {
     # fake home for cpan-testers
     # no fake requested ## local $ENV{HOME} = tempdir( CLEANUP => 1 );
 
-    like( qx{ $^X -Ilib -e "require $_; print '$_ ok'" }, qr/^\s*$_ ok/s, "$_ loaded ok" )
-        for sort @modules;
+    use Parallel::ForkManager;
+    my $pm = new Parallel::ForkManager(4);
+    $pm->run_on_finish(
+        sub {
+            my ($pid, $exit_code, $ident, $exit_signal, $core_dump, $data_structure_reference) = @_;
+            if (defined($data_structure_reference)) {  # children are not forced to send anything
+                my $string = $data_structure_reference->{string};  # child passed a string reference
+                my $module = $data_structure_reference->{module};  # child passed a string reference
+                like( $string, qr/^\s*$module ok/s, "$module loaded ok" );
+            } else {  # problems occuring during storage or retrieval will throw a warning
+                print qq|No message received from child process $pid!\n|;
+            }
+        }
+    );
+    for (sort @modules) {
+        my $pid = $pm->start and next;
+        #like( qx{ $^X -Ilib -e "require $_; print '$_ ok'" }, qr/^\s*$_ ok/s, "$_ loaded ok" );
+        my $string = qx { $^X -Ilib -e "require $_;print '$_ ok'"};
+        my %to_test = (module=>$_,string=>$string);
+        $pm->finish(0,\%to_test);
+    }
+    $pm->wait_all_children;
 
     SKIP: {
         eval "use Test::Script 1.05; 1;";
@@ -78,5 +100,5 @@ $plan ? (plan tests => $plan) : (plan skip_all => "no tests to run");
             script_compiles( $file, "$script script compiles" );
         }
     }
-
 }
+print STDERR "End ".localtime(time)."\n";
