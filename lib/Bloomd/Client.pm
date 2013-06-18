@@ -8,7 +8,7 @@
 #
 package Bloomd::Client;
 {
-  $Bloomd::Client::VERSION = '0.21';
+  $Bloomd::Client::VERSION = '0.22';
 }
 
 # ABSTRACT: Perl client to the bloomd server
@@ -35,7 +35,7 @@ has port => ( is => 'ro', default => sub {8673} );
 has _socket => ( is => 'lazy', predicate => 1, clearer => 1 );
 
 
-has timeout => ( is => 'ro', predicate => 1, default => sub { 10 } );
+has timeout => ( is => 'ro', , default => sub { 10 } );
 
 
 method _build__socket {
@@ -46,7 +46,7 @@ method _build__socket {
         Timeout  => $self->timeout,
     ) or die "Can't connect to server: $!";
 
-    $self->has_timeout
+    $self->timeout
       or return $socket;
 
     $Config{osname} eq 'netbsd' || $Config{osname} eq 'solaris'
@@ -196,7 +196,7 @@ Bloomd::Client - Perl client to the bloomd server
 
 =head1 VERSION
 
-version 0.21
+version 0.22
 
 =head1 SYNOPSIS
 

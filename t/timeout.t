@@ -8,6 +8,16 @@
 # the same terms as the Perl 5 programming language system itself.
 #
 
+BEGIN { 
+    use Config;
+    if ( $Config{osname} eq 'netbsd' || $Config{osname} eq 'solaris') {
+        require Test::More;
+        Test::More::plan( skip_all =>
+              'should not test Bloomd::Client under Solaris OR Netbsd'
+        );
+    }
+}
+
 use feature ':5.12';
 
 use FindBin qw($Bin);

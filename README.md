@@ -1,7 +1,9 @@
-Bloomd-Client
+Bloomd-Client  
 =============
 
-This is a Perl client for the [bloomd server](https://github.com/armon/bloomd).
+This is a Perl client for the [bloomd server](https://github.com/armon/bloomd). 
+
+Travis status: ![Build Status](https://api.travis-ci.org/dams/Bloomd-Client.png?branch=master)
 
 Installation
 ------------
