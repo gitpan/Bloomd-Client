@@ -18,7 +18,7 @@ my %module_build_args = (
     "Damien \"dams\" Krotkine"
   ],
   "dist_name" => "Bloomd-Client",
-  "dist_version" => "0.22",
+  "dist_version" => "0.23",
   "license" => "perl",
   "module_name" => "Bloomd::Client",
   "recommends" => {},
@@ -29,7 +29,7 @@ my %module_build_args = (
     "List::MoreUtils" => 0,
     "Method::Signatures" => 0,
     "Moo" => 0,
-    "perl" => "v5.12.0"
+    "perl" => "v5.10.0"
   },
   "script_files" => [],
   "test_requires" => {

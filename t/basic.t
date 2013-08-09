@@ -8,7 +8,7 @@
 # the same terms as the Perl 5 programming language system itself.
 #
 
-use feature ':5.12';
+use feature ':5.10';
 
 BEGIN {
     unless ( $ENV{BLOOMD_HOST} && $ENV{BLOOMD_PORT} ) {
