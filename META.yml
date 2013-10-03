@@ -20,7 +20,7 @@ name: Bloomd-Client
 provides:
   Bloomd::Client:
     file: lib/Bloomd/Client.pm
-    version: 0.24
+    version: 0.25
 requires:
   Config: 0
   IO::Socket::INET: 0
@@ -31,4 +31,4 @@ requires:
   perl: 5.010
 resources:
   repository: git://github.com/dams/Bloomd-Client.git
-version: 0.24
+version: 0.25
