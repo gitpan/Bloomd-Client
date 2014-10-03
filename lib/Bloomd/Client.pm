@@ -8,7 +8,7 @@
 #
 package Bloomd::Client;
 {
-  $Bloomd::Client::VERSION = '0.26';
+  $Bloomd::Client::VERSION = '0.27';
 }
 
 # ABSTRACT: Perl client to the bloomd server
@@ -36,6 +36,8 @@ has _socket => ( is => 'lazy', predicate => 1, clearer => 1 );
 
 
 has timeout => ( is => 'ro', , default => sub { 10 } );
+
+has '_pid' => (is => 'ro', lazy => 1, clearer => 1, default => sub { $$ });
 
 
 sub _build__socket {
@@ -162,6 +164,10 @@ sub flush {
 
 sub _execute {
     my ($self, $command) = @_;
+	if ($self->_pid ne $$) {
+		$self->_clear_socket;
+		$self->_clear_pid;
+	}
     my $socket = $self->_socket;
 
     local $\;
@@ -215,7 +221,7 @@ Bloomd::Client - Perl client to the bloomd server
 
 =head1 VERSION
 
-version 0.26
+version 0.27
 
 =head1 SYNOPSIS
 
